@@ -1,0 +1,36 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+// Versi Dependensi yang Stabil
+//def appiumJavaClientVersion = '7.6.0' // Versi yang stabil sebelum Appium 8
+//def appiumJavaClientVersion = '8.6.0'
+def appiumJavaClientVersion = '9.5.0'
+def cucumberVersion = '6.10.4'       // Versi yang stabil dari Cucumber-JVM 6
+def junitVersion = '4.13.2'
+
+dependencies {
+    // Appium Java Client (untuk berinteraksi dengan Appium Server)
+    testImplementation "io.appium:java-client:$appiumJavaClientVersion"
+
+    // Cucumber (BDD)
+    testImplementation "io.cucumber:cucumber-java:$cucumberVersion"
+    testImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
+
+    // JUnit (untuk menjalankan Cucumber Runner)
+    testImplementation "junit:junit:$junitVersion"
+
+    // Selenium (Appium membutuhkan library Selenium)
+    testImplementation 'org.seleniumhq.selenium:selenium-api:3.141.59'
+    testImplementation 'org.seleniumhq.selenium:selenium-support:3.141.59'
+}
+
+// Task untuk menjalankan semua test
+test {
+    useJUnit()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
